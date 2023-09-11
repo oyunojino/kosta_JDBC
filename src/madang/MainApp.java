@@ -59,6 +59,7 @@ public class MainApp {
     }
   }
 
+//  1 : 도서 리스트 확인
   static void bookList() throws SQLException {
     String sql = "SELECT * FROM book;";
     PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -78,6 +79,7 @@ public class MainApp {
     }
   }
 
+// 2 : 고객 리스트 확인
   static void customerList() throws SQLException {
     String sql = "SELECT * FROM customer;";
     PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -97,6 +99,7 @@ public class MainApp {
     }
   }
 
+//  3 : 주문 리스트 확인
   static void orderList() throws SQLException {
     String sql = "SELECT * FROM vorders;";
     PreparedStatement pstmt = conn.prepareStatement(sql);
