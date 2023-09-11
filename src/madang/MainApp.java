@@ -59,7 +59,7 @@ public class MainApp {
     }
   }
 
-//  1 : 도서 리스트 확인
+  //  1 : 도서 리스트 확인
   static void bookList() throws SQLException {
     String sql = "SELECT * FROM book;";
     PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -79,7 +79,7 @@ public class MainApp {
     }
   }
 
-// 2 : 고객 리스트 확인
+  // 2 : 고객 리스트 확인
   static void customerList() throws SQLException {
     String sql = "SELECT * FROM customer;";
     PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -99,7 +99,7 @@ public class MainApp {
     }
   }
 
-//  3 : 주문 리스트 확인
+  //  3 : 주문 리스트 확인
   static void orderList() throws SQLException {
     String sql = "SELECT * FROM vorders;";
     PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -121,7 +121,7 @@ public class MainApp {
     }
   }
 
-//  11 : 도서 추가 등록
+  //  11 : 도서 추가 등록
   static void addBook() throws SQLException {
     Scanner scanner = new Scanner(System.in);
     String[] bookInfo = new String[3];
@@ -142,7 +142,8 @@ public class MainApp {
 
     pstmt.close();
   }
-// -> 가장 마지막 bookId 찾기
+
+  // -> 가장 마지막 bookId 찾기
   static void getMaxBookId() throws SQLException {
     String sql = "SELECT Max(bookid) FROM book;";
     PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -153,7 +154,7 @@ public class MainApp {
     }
   }
 
-// 12 : 고객 추가 등록
+  // 12 : 고객 추가 등록
   static void addCustomer() throws SQLException {
     Scanner scanner = new Scanner(System.in);
     String[] custInfo = new String[4];
@@ -174,7 +175,7 @@ public class MainApp {
     pstmt.close();
   }
 
-//  13 : 주문 추가 등록
+  //  13 : 주문 추가 등록
   static void addOrder() throws SQLException {
     Scanner scanner = new Scanner(System.in);
     String[] orderInfo = new String[2];
@@ -199,7 +200,7 @@ public class MainApp {
     pstmt.close();
   }
 
-// -> bookId에 따른 price값 찾기
+  // -> bookId에 따른 price값 찾기
   static void bookPrice(String bookid) throws SQLException {
     String sql = "SELECT price FROM book WHERE bookid=?;";
 
@@ -211,18 +212,42 @@ public class MainApp {
       publicBookPrice = rs.getInt(1);
     }
   }
-  
-// 21 : 도서 정보 삭제
-  private static void changeBook() throws SQLException {
 
+  // 21 : 도서 정보 삭제
+  private static void changeBook() throws SQLException {
+    // 수정하고 싶은 책id 입력받아서 내용 확인하기
+    Scanner in = new Scanner(System.in);
+
+    System.out.print("수정할 책의 id를 입력하세요.");
+    int bookId = in.nextInt();
+    String sql = "SELECT bookname, publisher, price FROM book where bookid = ?;";
+    PreparedStatement pstmt = conn.prepareStatement(sql);
+    pstmt.setInt(1, bookId);
+    ResultSet rs = pstmt.executeQuery();
+    if (rs != null && rs.next()) {
+      System.out.println(rs.getString(1) + ","
+          + rs.getString(2) + ","
+          + rs.getInt(3));
+    }
+    // 수정할 도서정보 입력받아서 db에 업데이트하기
+    System.out.print("책의 가격을 수정하려면 입력하세요. 수정하지 않으려면 !");
+    String price = in.next();
+    if (!price.equals("!")) {
+      sql = "update book set price = ? where bookid = ? ;";
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setInt(1, Integer.parseInt(price));
+      pstmt.setInt(2, bookId);
+      int res = pstmt.executeUpdate();
+      if (res == 1) System.out.println("수정완료!");
+    }
   }
 
-//  22 : 고객 정보 삭제
+  //  22 : 고객 정보 삭제
   private static void changeCustomer() throws SQLException {
 
   }
-  
-//  23 : 주문 정보 삭제
+
+  //  23 : 주문 정보 삭제
   private static void changeOrder() throws SQLException {
 
   }
