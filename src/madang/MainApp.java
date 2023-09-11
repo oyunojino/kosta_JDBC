@@ -121,6 +121,7 @@ public class MainApp {
     }
   }
 
+//  11 : 도서 추가 등록
   static void addBook() throws SQLException {
     Scanner scanner = new Scanner(System.in);
     String[] bookInfo = new String[3];
@@ -141,7 +142,7 @@ public class MainApp {
 
     pstmt.close();
   }
-
+// -> 가장 마지막 bookId 찾기
   static void getMaxBookId() throws SQLException {
     String sql = "SELECT Max(bookid) FROM book;";
     PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -152,7 +153,7 @@ public class MainApp {
     }
   }
 
-
+// 12 : 고객 추가 등록
   static void addCustomer() throws SQLException {
     Scanner scanner = new Scanner(System.in);
     String[] custInfo = new String[4];
@@ -173,6 +174,7 @@ public class MainApp {
     pstmt.close();
   }
 
+//  13 : 주문 추가 등록
   static void addOrder() throws SQLException {
     Scanner scanner = new Scanner(System.in);
     String[] orderInfo = new String[2];
@@ -197,6 +199,7 @@ public class MainApp {
     pstmt.close();
   }
 
+// -> bookId에 따른 price값 찾기
   static void bookPrice(String bookid) throws SQLException {
     String sql = "SELECT price FROM book WHERE bookid=?;";
 
