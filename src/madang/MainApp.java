@@ -244,7 +244,31 @@ public class MainApp {
 
   //  22 : 고객 정보 삭제
   private static void changeCustomer() throws SQLException {
+    // 수정하고 싶은 고객id 입력받아서 내용 확인하기
+    Scanner in = new Scanner(System.in);
 
+    System.out.print("수정할 고객의 id를 입력하세요.");
+    int custId = in.nextInt();
+    String sql = "SELECT name, address, phone FROM customer where custid = ?;";
+    PreparedStatement pstmt = conn.prepareStatement(sql);
+    pstmt.setInt(1, custId);
+    ResultSet rs = pstmt.executeQuery();
+    if (rs != null && rs.next()) {
+      System.out.println(rs.getString(1) + ","
+          + rs.getString(2) + ","
+          + rs.getString(3));
+    }
+    // 수정할 도서정보 입력받아서 db에 업데이트하기
+    System.out.print("고객의 이름을 수정하려면 입력하세요. 수정하지 않으려면 !");
+    String name = in.next();
+    if (!name.equals("!")) {
+      sql = "update customer set name = ? where custid = ? ;";
+      pstmt = conn.prepareStatement(sql);
+      pstmt.setString(1, name);
+      pstmt.setInt(2, custId);
+      int res = pstmt.executeUpdate();
+      if (res == 1) System.out.println("수정완료!");
+    }
   }
 
   //  23 : 주문 정보 삭제
