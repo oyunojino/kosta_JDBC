@@ -212,27 +212,18 @@ public class MainApp {
     }
   }
   
-
+// 21 : 도서 정보 삭제
   private static void changeBook() throws SQLException {
-    // 수정할 bookid 입력받기
-    Scanner scanner = new Scanner(System.in);
-
-    System.out.print("수정할 책의 id를 입력 : ");
-    int bookid = scanner.nextInt();
-    String sql = "SELECT bookname, publisher, price FROM book WHERE bookid=?";
-
-    PreparedStatement pstmt = conn.prepareStatement(sql);
-    pstmt.setInt(1, bookid);
-    ResultSet rs = pstmt.executeQuery();
-
 
   }
 
+//  22 : 고객 정보 삭제
   private static void changeCustomer() throws SQLException {
-    // 고객 정보 수정
+
   }
   
+//  23 : 주문 정보 삭제
   private static void changeOrder() throws SQLException {
-    // 주문 정보 수정
+
   }
 }
